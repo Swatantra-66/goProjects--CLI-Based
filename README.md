@@ -37,6 +37,8 @@ git clone https://github.com/<your-username>/go-number-guessing-game.git
 cd go-number-guessing-game
 ```
 
+### 2. Run the Game
+
 ```bash
 go run main.go
 ```
