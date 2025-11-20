@@ -21,8 +21,18 @@ func main() {
 	"DogName" : "Don",
 	"DogAge": 8,
 	"DogBreed" : "German Shepherd",
-	"DogBehaviour" : {"Friendly" : true, "Fiery": false},
-	"FavFoods" : ["Chicken","Egg","Milk","Roti","Biscuits","Rice"]
+	"DogBehaviour" : {
+	"Friendly" : true, 
+	"Fiery": false
+	},
+	"FavFoods" : [
+	"Chicken",
+	"Egg",
+	"Milk",
+	"Roti",
+	"Biscuits",
+	"Rice"
+	 ]
 	}`
 
 	var dog Dog
