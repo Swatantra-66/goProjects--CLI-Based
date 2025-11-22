@@ -32,4 +32,15 @@
 
 ---
 
+## TODO CLI App
+
+- Add a task
+- List all tasks
+- Mark task as done
+- Delete a task
+- Save tasks in a tasks.json file
+- Load tasks from the file on startup
+
+---
+
 ### Thank you
