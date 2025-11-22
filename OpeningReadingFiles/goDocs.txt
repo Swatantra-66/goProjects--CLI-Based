@@ -1,0 +1,188 @@
+Learning Golang
+
+
+Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+Go, also known as Golang, is a statically typed language. This means that the type of every variable is known at compile time, providing safety and predictability in your code
+
+Many Go projects demonstrate that Golang is commonly used for the following applications:
+
+Concurrency :
+Concurrency is about dealing a lots of things at once. Developers need to write code to prevent conflicts when tasks run in parallel.
+
+Web Development
+Cloud Services
+Data Science
+Networking
+Microservices
+
+Go’s ability to handle multiple processes at the same time means that these cloud applications can run well, even under very heavy loads.
+
+Its lightweight nature, fast execution, and built-in support for concurrency make it an excellent choice for developing distributed systems.
+
+
+Basix example of Go Syntanctical code
+
+package main
+import "fmt"
+
+func main() {
+    **words := \[3]string{"Hello", "World"}**
+    \*\*nums := \\\[3]int{1,2,3}\*\*
+
+    \\\*\\\*fmt.Println(words\\\\\\\[1])\\\*\\\*
+    \\\\\\\*\\\\\\\*fmt.Println(nums\\\\\\\\\\\\\\\[2])\\\\\\\*\\\\\\\*
+}
+
+Slices:
+
+Slices are like arrays but they are dynamically resizable i.e. their size is not fixed similar to list in python. Slices are a layer of abstraction over arrays.
+To add elements to a slice we use the append() function.
+
+A slice has three main properties:
+
+Length: How many items are currently in the slice?
+Capacity: How many items can the slice hold before needing to grow?
+Pointer: A reference to the underlying “storage area” (called an array) where the items are kept.
+
+Eg:
+
+var mySlice []int
+mySlice = append(mySlice,1)
+mySlice = append(mySlice,2)
+
+we can write it in a single line like that:
+mySlice := []int{1,2}
+
+NOTE : := operator enables us to skip adding the var keyword and the type.
+
+Shared Data: Slices created from arrays share the same underlying array, so changes in one affect the other.
+
+//output
+Array after modification: [10 99 30 40 50]
+Slice after modification: [99 30 40]
+
+make() vs new() in Go
+
+Slice capacity determines when reallocation occurs during append operations. Go typically doubles capacity for smaller slices. Pre-allocate with make([]T, length, capacity) to optimize memory usage and minimize allocations in performance-critical code.
+
+The make function allocates and initializes objects of type slice, map, or channel. Unlike new, which returns a pointer, make returns an initialized value ready to use.
+
+IMP: Capacity determines when the underlying array needs reallocation. Appending beyond capacity causes automatic resizing.
+
+
+The capacity hint helps optimize map performance by reducing rehashing. Maps dynamically grow regardless of initial capacity. Elements can be added, checked, and deleted.
+
+Creating a buffered channel with make
+
+Eg:
+
+package main
+
+import "fmt"
+
+func main() {
+    **// Create buffered channel with capacity 3**
+    \*\*messages := make(chan string, 3)\*\*
+
+    \\\*\\\*// Send messages without blocking\\\*\\\*
+    \\\\\\\*\\\\\\\*messages <- "first"\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*messages <- "second"\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*messages <- "third"\\\\\\\*\\\\\\\*
+
+    
+
+    \\\\\\\*\\\\\\\*// Receive messages\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println(<-messages)\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println(<-messages)\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println(<-messages)\\\\\\\*\\\\\\\*
+
+    
+
+    \\\\\\\*\\\\\\\*// Close channel\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*close(messages)\\\\\\\*\\\\\\\*
+}
+
+-> Buffered channels allow sending multiple values without blocking. The channel holds values until received. Closing is optional but recommended when done.
+
+Slice with make and copy
+
+package main
+
+import "fmt"
+
+func main() {
+    **original := \[]int{1, 2, 3, 4, 5}**
+
+    \*\*// Create slice with exact needed capacity\*\*
+    \\\*\\\*copySlice := make(\\\\\\\[]int, len(original))\\\*\\\*
+
+    \\\\\\\*\\\\\\\*// Copy elements\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*copied := copy(copySlice, original)\\\\\\\*\\\\\\\*
+
+    
+
+    \\\\\\\*\\\\\\\*fmt.Println("Original:", original)\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println("Copied:", copySlice)\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println("Elements copied:", copied)\\\\\\\*\\\\\\\*
+
+    
+
+    \\\\\\\*\\\\\\\*// Modify copy\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*copySlice\\\\\\\\\\\\\\\[0] = 100\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println("After modification:")\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println("Original:", original)\\\\\\\*\\\\\\\*
+
+    \\\\\\\*\\\\\\\*fmt.Println("Copied:", copySlice)\\\\\\\*\\\\\\\*
+
+}
+
+//output
+Original: [1 2 3 4 5]
+Copied: [1 2 3 4 5]
+Elements copied: 5
+After modification:
+Original: [1 2 3 4 5]
+Copied: [100 2 3 4 5]
+
+Creating slices with exact capacity avoids unnecessary allocations. The copy function returns number of elements copied. Modifying the copy doesn't affect the original.
+
+Runes: Runes are an alias for the int32 type, representing a Unicode code point.
+Runes provide a simple way to handle UTF-8 text in Go.
+Runes represent Unicode code points as int32 aliases
+
+
+
+Marshaling: encoding Go structs into JSON format, a process known as marshaling. This skill is crucial for sending data to APIs, as JSON is the primary data format for most web services.
+
+Unmarshaling: decoding JSON data into Go structs, also known as unmarshaling. This is an essential skill for receiving and processing data from APIs.
+
+
+For Linux, we use the standard Unix permission bits:
+
+0666 – Read and write for all users
+0600 – Read and write for owner only
+0444 – Readable by everyoneHello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
+Hello, this is appended text!
