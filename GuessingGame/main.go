@@ -23,7 +23,7 @@ func main() {
 	fmt.Println("Enter your choice: ")
 	fmt.Scan(&difficultyChoice)
 
-	playGame(difficultyChoice, guessNum) //let's play
+	playGame(difficultyChoice, guessNum)
 
 }
 
